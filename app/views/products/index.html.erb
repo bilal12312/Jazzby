@@ -1,0 +1,57 @@
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container">
+  <h1 class="color-white"><%= current_user.surname %></h1>
+  <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+  </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+<h1>Listing products</h1>
+<% if current_user.admin? %>
+      <div style="text-align: end"><%= link_to 'New product', new_product_path %></div>
+    <% end %>
+ 
+<table id="table_id" class="display cell-border">
+ <thead>
+   <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Add to cart</th>
+    <th>Show</th>
+    <% if current_user.admin? %>
+      <th>Edit</th>
+    <% end %>
+    <% if current_user.admin? %>
+      <th>Delete</th>
+      
+    <% end %>
+  </tr>
+ </thead>
+  
+  <tbody>
+    <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.price %></td>
+      <td><%= button_to "Add #{product.name} to cart", line_items_path(:product_id => product.id) %></td>
+      <td><%= link_to 'Show', product_path(product) %></td>
+      
+        <% if current_user.admin? %>
+          <td><%= link_to 'Edit', edit_product_path(product) %> </td>
+        <% end %>
+       
+      
+        <% if current_user.admin? %>
+          <td><%= link_to 'Destroy', product_path(product),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>
