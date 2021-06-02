@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
-	
+	http_basic_authenticate_with name: "bilal", password: "123", except: [:index, :show]
+
 	 def index
     @products = Product.all
   end
@@ -13,7 +14,9 @@ class ProductsController < ApplicationController
   end
 
   def edit
+
   @product = Product.find(params[:id])
+  authorize @product
 end
 
  def create

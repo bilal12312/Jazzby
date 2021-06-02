@@ -16,7 +16,18 @@ class OrdersController < ApplicationController
 	    @order.line_items << item
 	    item.cart_id = nil
 	  end
-	  @order.save
+	  respond_to do |format|
+	      if @order.save
+	        # Tell the OrderMailer to send a delivery email after save
+	        OrderMailer.deliver_email(@order).deliver
+
+	        format.html 
+	        format.json { render json: @order, status: :created, location: @order }
+	      else
+	        format.html { render action: 'new' }
+	        format.json { render json: @order.errors, status: :unprocessable_entity }
+          end
+      end
 	  Cart.destroy(session[:cart_id])
 	  session[:cart_id] = nil
 	  redirect_to root_path

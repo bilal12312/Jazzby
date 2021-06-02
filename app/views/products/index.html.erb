@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container">
-  <h1 class="color-white"><%= current_user.surname %></h1>
+  <h1 class="color-white"><%= current_user.name %></h1>
   <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
   </ul>
   </div>

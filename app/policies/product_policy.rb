@@ -5,7 +5,9 @@ class ProductPolicy  < ApplicationPolicy
     @user = user
     @product = product
   end
-
+  def edit?
+    user.admin?
+  end
   def update?
     user.admin?
   end
@@ -15,7 +17,5 @@ class ProductPolicy  < ApplicationPolicy
   def destroy?
   	user.admin?
   end
-  def edit?
-    user.admin?
-  end
+  
 end
