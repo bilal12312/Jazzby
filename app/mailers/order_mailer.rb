@@ -1,5 +1,5 @@
 class OrderMailer < ApplicationMailer
-	default from: ENV['gmail_username']
+	default from: "bkhalid0311@gmail.com"
 
 	  def deliver_email(order)
 	    @order = order
