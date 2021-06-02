@@ -1,5 +1,5 @@
 class OrderMailer < ApplicationMailer
-	default from: Rails.application.credentials.dig(:gmail_username)
+	default from: ENV['gmail_username']
 
 	  def deliver_email(order)
 	    @order = order
